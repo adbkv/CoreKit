@@ -10,12 +10,11 @@ It's goal is to offer simple, readable examples of reusable C code that balance 
 
 ### Included Modules:
 - Dictionaries
-- ...
+- Vectors
 
 ### Future Plans
 CoreKit is a WIP and will continue to grow with more headers and examples over time.  
 Planned additions include:
-- Dynamic arrays (`ck_vec`)
 - String utilities (`ck_str`)
 
 ### Contributing
