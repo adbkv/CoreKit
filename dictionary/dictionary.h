@@ -17,17 +17,17 @@ struct entry_t {
 typedef struct {
   struct entry_t *entries;
   size_t capacity, size;
-} dict_t;
+} ck_dict;
 
-dict_t *dict_new() {
-  dict_t *dict = malloc(sizeof(dict_t));
+ck_dict *dict_new() {
+  ck_dict *dict = malloc(sizeof(ck_dict));
   dict->entries = NULL;
   dict->capacity = 0; dict->size = 0;
   if (!dict) exit(1);
   return dict;
 }
 
-void dict_push(dict_t *dest, char *key, void *val) { 
+void dict_push(ck_dict *dest, char *key, void *val) { 
   if (dest->size >= dest->capacity) {
     dest->capacity = (!dest->capacity) ? 1 : dest->capacity*2;
     dest->entries = realloc(dest->entries, dest->capacity * sizeof(struct entry_t));
@@ -46,14 +46,14 @@ void dict_push(dict_t *dest, char *key, void *val) {
   dest->size++;
 }
 
-void *dict_get(dict_t *src, char *key) {
+void *dict_get(ck_dict *src, char *key) {
   for (size_t i = 0; i < src->size; i++) {
     if (!strcmp(src->entries[i].key, key)) return src->entries[i].val;
   }
   return NULL;
 }
 
-void dict_free(dict_t *src) {
+void dict_free(ck_dict *src) {
   for (size_t i = 0; i < src->size; i++) free(src->entries[i].key);
 
   free(src->entries);
