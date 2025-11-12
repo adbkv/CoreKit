@@ -1,7 +1,7 @@
 ## CoreKit - Minimal C-Header Kit
 
 ### What is CoreKit?
-CoreKit is a minimal educational C-header kit developed & maintained solely by me (@adbkv), this kit includes multiple header files; which can be implemented into your C-project manually.
+CoreKit is a minimal educational C-header kit developed & maintained solely by me (@aobv), this kit includes multiple header files; which can be implemented into your C-project manually.
 It provides lightweight, modular components that can be manually integrated into your C projects; no external dependencies or build systems required.
 
 ### What is the purpose of CoreKit?
