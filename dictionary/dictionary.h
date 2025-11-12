@@ -1,13 +1,10 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 #ifndef SIG_DICT_H
 #define SIG_DICT_H
-
-#ifndef arrlen
-#define arrlen(src) sizeof(src) / sizeof(src[0])
-#endif
 
 struct entry_t {
   char *key;
@@ -21,17 +18,17 @@ typedef struct {
 
 ck_dict *dict_new() {
   ck_dict *dict = malloc(sizeof(ck_dict));
+  assert(dict && "ck_dict malloc failed");
   dict->entries = NULL;
   dict->capacity = 0; dict->size = 0;
-  if (!dict) exit(1);
   return dict;
 }
 
-void dict_push(ck_dict *dest, char *key, void *val) { 
+void dict_push(ck_dict *dest, const char *key, const void *val) { 
   if (dest->size >= dest->capacity) {
     dest->capacity = (!dest->capacity) ? 1 : dest->capacity*2;
     dest->entries = realloc(dest->entries, dest->capacity * sizeof(struct entry_t));
-    if (!dest->entries) exit(1);
+    assert(dest->entries && "ck_dict realloc failed");
   }
   
   for (size_t i = 0; i < dest->size; i++) {
@@ -43,10 +40,11 @@ void dict_push(ck_dict *dest, char *key, void *val) {
 
   dest->entries[dest->size].key = strdup(key);
   dest->entries[dest->size].val = val;
+  assert(dest->entries[dest->size].key && "ck_dict strdup failed");
   dest->size++;
 }
 
-void *dict_get(ck_dict *src, char *key) {
+void *dict_get(const ck_dict *src, const char *key) {
   for (size_t i = 0; i < src->size; i++) {
     if (!strcmp(src->entries[i].key, key)) return src->entries[i].val;
   }
